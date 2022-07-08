@@ -15,6 +15,7 @@ qemu-system-x86_64 -kernel bzImage \
 
 
 
+
 # Network setup
 
 http://www.linux-kvm.org/page/Networking
@@ -28,6 +29,10 @@ ip link set xxxx up
 # Run dhclient in guest to get the ip addr!!!!!
 dhclient
 # https://unix.stackexchange.com/questions/523922/no-ip-address-assigned-to-kvm-guest-after-its-cloned-from-another-guest
+
+# setup env using AutoECS
+# remember to configure sources.list first!!!!!
+sh -c "$(wget https://raw.githubusercontent.com/Tr0py/AutoECS/master/AutoECS.sh -O -)"
 
 # Automatically run dhclient on booting
 # add dhclient to rc.local
@@ -59,4 +64,19 @@ chmod a+x /rc.local
 
 # Finally works!
 
+# Use ssh to connect to guest
+ssh -p 2222 localhost -l xxx
 # but lsmem shows "lsmem: This system does not support memory blocks"
+# it should be the kernel's problem: if I use the non-kvm compiled kernel, it just works.
+# and using kvm acc still boosts the boot speed with normal kernel image
+# so let's just use normal kernel now
+# but there's no libvirt. fuck.
+
+# next is about setting up vnvdimm emulation on qemu/kvm.
+
+# make menuconfig to enable a bunch of support for guest, especially all the NVDIMM
+# support, so with the qemu-system command, there shows /dev/pmem0.!
+# also, lsmem now works!
+# Great!
+
+
