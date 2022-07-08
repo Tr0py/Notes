@@ -1,3 +1,5 @@
+# Emulating NVDIMM on Linux
+# Followed the instructions on https://www.intel.com/content/www/us/en/developer/articles/training/how-to-emulate-persistent-memory-on-an-intel-architecture-server.html
 
 # Uninstalling pre-build PMDK packages
 # PMDK related packages
@@ -28,3 +30,20 @@ sudo apt install -y git gcc g++ autoconf automake asciidoc asciidoctor bash-comp
 # Then install PMDK using above related packages.
 
 # But it does not have libpmem2
+# have to compile from source.
+# followed https://docs.pmem.io/persistent-memory/getting-started-guide/installing-pmdk/compiling-pmdk-from-source
+# Compiled from source.
+
+
+# use examples from pmdk source repo.
+# use libpmem2 basic to write to file and use advance to reaad from file.
+# finding mmap
+# strace results for cmd `strace ./advanced /dev/dax0.0 2813 9530 &> strace.log`
+ mmap(NULL, 1816784, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7ff5c0c94000
+ mmap(0x7ff5c0c99000, 1728512, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x5000) = 0x7ff5c0c99000
+ mmap(0x7ff5c0e3f000, 57344, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1ab000) = 0x7ff5c0e3f000
+ mmap(0x7ff5c0e4d000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1b8000) = 0x7ff5c0e4d000
+ mmap(0x7ff5c0e4f000, 2256, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7ff5c0e4f000
+
+# should be one of these.
+
