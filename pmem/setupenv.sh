@@ -78,3 +78,37 @@ failed to reconfigure namespace: No such device or address
 # could be this: https://lkml.org/lkml/2018/2/26/993
 # But is aligned to 1G!!!! WTF?!
 # TODO: try mem!mem  for host first and then guest
+
+# FK. i think it's bc of the kernel config....
+grep 'DAX' .config
+CONFIG_NVDIMM_DAX=y
+CONFIG_DAX_DRIVER=y
+CONFIG_DAX=y
+# CONFIG_DEV_DAX is not set
+# CONFIG_FS_DAX is not set
+
+
+grep 'PMEM' .config
+# CONFIG_X86_PMEM_LEGACY is not set
+# CONFIG_VIRTIO_PMEM is not set
+CONFIG_BLK_DEV_PMEM=y
+CONFIG_ARCH_HAS_PMEM_API=y
+# remember to check the kernel config first....
+# Now it works!!! damn.
+
+# Test: use examples under pmdk/src/examples/libpmem2
+# Write "hello, persistent memory" to pmem
+./basic /dev/dax0.0
+# Read out the content
+./advanced /dev/dax0.0 0 100
+68 65 6C 6C 6F 2C 20 70 65 72 73 69 73 74 65 6E
+74 20 6D 65 6D 6F 72 79 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 %
+
+# That is the string in hex ascii.
+
+GJ!
