@@ -112,3 +112,46 @@ CONFIG_ARCH_HAS_PMEM_API=y
 # That is the string in hex ascii.
 
 GJ!
+
+
+# When configuring dax for memory mode: see the kmem module not found bug
+# https://stevescargall.com/2019/07/09/how-to-extend-volatile-system-memory-ram-using-persistent-memory-on-linux/
+sudo daxctl reconfigure-device dax0.0 --mode=system-ram
+libkmod: ERROR ../libkmod/libkmod-module.c:838 kmod_module_insert_module: could not find module by name='kmem'
+libdaxctl: daxctl_insert_kmod_for_mode: dax0.0: insert failure: -2
+error reconfiguring devices: No such file or directory
+reconfigured 0 devices
+
+lsmod
+# lsmod shows nothing, my kernel might be a monolithic kernel...
+# see https://archive.download.redhat.com/pub/redhat/linux/4.2/en/os/alpha/doc/rhmanual/doc037.html
+
+Legend: [*] built-in  [ ] excluded  <M> module  < > module capable
+
+# Error: Driver 'kmem' is already registered, aborting.
+# fk me.
+
+# I manually M ed KMEM module and copy pasted the /lib/modules/xxx/
+# to guest fs and then it works.
+sudo daxctl reconfigure-device dax0.0 --mode=system-ram
+[sudo] password for z:
+libdaxctl: memblock_in_dev: dax0.0: memory0: Unable to determine phys_index: Success
+libdaxctl: memblock_in_dev: dax0.0: memory0: Unable to determine phys_index: Success
+dax0.0:
+  WARNING: detected a race while onlining memory
+  Some memory may not be in the expected zone. It is
+  recommended to disable any other onlining mechanisms,
+  and retry. If onlining is to be left to other agents,
+  use the --no-online option to suppress this warning
+dax0.0: all memory sections (31) already online
+libdaxctl: memblock_in_dev: dax0.0: memory0: Unable to determine phys_index: Success
+[
+  {
+    "chardev":"dax0.0",
+    "size":4292870144,
+    "target_node":0,
+    "mode":"system-ram",
+    "movable":false
+  }
+]
+reconfigured 1 device
