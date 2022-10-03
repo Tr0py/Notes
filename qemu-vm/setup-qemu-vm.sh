@@ -34,3 +34,4 @@ rmdir $DIR
                         -net nic -net user,hostfwd=tcp::2222-:22
 # Check NUMA memory status
 numastat -m
+numactl -H
