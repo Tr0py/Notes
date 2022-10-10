@@ -80,7 +80,7 @@ exit 0
 ```
 
 # remember to give it executable privilege!!!
-chmod a+x /rc.local
+chmod a+x /etc/rc.local
 
 # Finally works!
 
