@@ -85,7 +85,7 @@ chmod a+x /etc/rc.local
 # Finally works!
 
 # Use ssh to connect to guest
-ssh -p 2222 localhost -l xxx
+ssh -p 2222 localhost -l <your-user-name>
 # but lsmem shows "lsmem: This system does not support memory blocks"
 # it should be the kernel's problem: if I use the non-kvm compiled kernel, it just works.
 # and using kvm acc still boosts the boot speed with normal kernel image
