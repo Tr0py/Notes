@@ -98,3 +98,8 @@ ssh -p 2222 localhost -l xxx
 # support, so with the qemu-system command, there shows /dev/pmem0.!
 # also, lsmem now works!
 # Great!
+
+
+# Appendix
+# If you want to change your vm's hostname, use this inside your vm:
+sudo hostnamectl set-hostname <new-hostname>
