@@ -17,6 +17,16 @@ sudo mount -o loop $IMG $DIR
 sudo debootstrap --arch amd64 focal $DIR http://archive.ubuntu.com/ubuntu
 sudo umount $DIR
 rmdir $DIR
+# TODO: use this command to set root password? sudo virt-customize -a $IMG --root-password password:root
+sudo virt-customize -a $IMG --root-password password:root
+
+# Installing kernel modules to guest VM
+# Remember to shutdown guest VM first!!! Otherwise the filesystem might get corrupted!
+# If that happens, use `sudo fsck.ext4 $IMG` to fix corrupted FS.
+sudo mount $IMG $DIR
+# This will install the kernel moduels to guest kernel
+cd <path-to-linux>; make modules; sudo make modules_install INSTALL_MOD_PATH=<absolute-path-to-$DIR>
+sudo umount $DIR
 
 # Setup NUMA node
  qemu-system-x86_64 -kernel bzImage \

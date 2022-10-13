@@ -94,6 +94,14 @@ grep 'PMEM' .config
 CONFIG_BLK_DEV_PMEM=y
 CONFIG_ARCH_HAS_PMEM_API=y
 # remember to check the kernel config first....
+# Set all of them to y or m!
+# !!!!!!
+# Some libraries tries to load the kernel modules so you might need to compile
+# them as modules and install them to guest kernel.  See my notes about vm setup
+# for how to do this in the "Installing kernel modules to guest VM" section.
+# Eg. ndctl wants to find the kernel module anyway so you need to provide them
+# ko.
+# !!!!!!
 # Now it works!!! damn.
 
 # Test: use examples under pmdk/src/examples/libpmem2
