@@ -17,7 +17,7 @@ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j$(nproc)
 
 
 # 2. Use qemu-system-aarch64 to launch the kernel
-qemu-system-aarch64     -kernel <path_to_Image.bz> \
+qemu-system-aarch64     -kernel <path_to_Image.gz> \
                         -nographic \
                         -cpu max \
                         -M virt
