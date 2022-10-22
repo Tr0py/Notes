@@ -10,14 +10,16 @@ another cloud storage after I already have two?)
 service](https://www.zotero.org/support/kb/webdav_services). (basically yet
 another cloud storage service)
 3. **Do it your own**.
-	a. Manually sync the whole database.  (dumb)
-	b. Sync only attachment files using existing cloud service. (doesn't require
+	1. Manually sync the whole database.  (dumb)
+	2. Sync only attachment files using existing cloud service. (doesn't require
 WebDAV support!)
 
 ### Solution
 
-Let Zotero sync your metadata and sync your own file attachment data using your
+Idea: Let Zotero sync your metadata and sync your own file attachment data using your
 cloud service.
+
+**Implementation**
 
 The `storage` folder inside Zotero data directory contains your attachment
 files.
@@ -33,7 +35,7 @@ cp -r ~/Zotero/storage.bak /Users/<username>/Library/CloudStorage/OneDrive/Zoter
 ln -s /Users/<username>/Library/CloudStorage/OneDrive/Zotero/sync/storage ~/Zotero/storage
 ```
 
-Done!  Your file is synced by you cloud service provider and you can free up
+Done!  Your file is synced by your cloud service provider and you can free up
 your Zotero cloud storage now!
 
 
