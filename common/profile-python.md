@@ -1,4 +1,4 @@
-# Profiling a Python Program
+# Why is My Python So Slow?  --  Profiling a Python Program
 
 Interested in why your program took so long to run?  See the time it spent in
 detail by profiling.
