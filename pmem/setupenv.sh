@@ -27,13 +27,16 @@
 # ubuntu 20.04 works just fine with the instructions on website.
 
 # But we can just install it from apt.
- https://docs.pmem.io/ndctl-user-guide/installing-ndctl/installing-ndctl-packages-on-linux
-sudo apt install ndctl daxctl
+# https://docs.pmem.io/ndctl-user-guide/installing-ndctl/installing-ndctl-packages-on-linux
+#sudo apt install ndctl daxctl
 # Then install PMDK using above related packages.
 
 # But it does not have libpmem2
 # have to compile from source.
- followed https://docs.pmem.io/persistent-memory/getting-started-guide/installing-pmdk/compiling-pmdk-from-source
+Building PMDK:
+
+ followed the instructions on https://docs.pmem.io/persistent-memory/getting-started-guide/installing-pmdk/compiling-pmdk-from-source
+ remember to install `libdaxctl`, `ndctl`, and `daxctl`.
 # Compiled from source.
 
 
